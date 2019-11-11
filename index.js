@@ -8,17 +8,6 @@ const generateHTML = require("./generateHTML");
 const generateCSS = require("./generateCSS");
 
 
-
-function  writePDF2(html){
-		const options = {
-			format: "Legal"
-		};
-		pdf.create(html, options).toFile("./JasonMartin1.pdf", function(err, res) {
-			if (err) return console.log(`Something went wrong ${err}`);
-			console.log(`Profile PDF written`);
-		});
-}
-
 function writePDF(html){
 	const puppeteer = require('puppeteer');
 
@@ -32,7 +21,7 @@ function writePDF(html){
 			path: 'JasonMartin.pdf',
 			printBackground: true,
 			format: 'A4',
-			landscape: true,
+			landscape: false,
 			margin: {
 				top: "10px"
 			}});
@@ -83,15 +72,15 @@ function gitHubData(userName) {
 				return starred;
 			});
 			let numberOfStarredRepos = starred.length;
-
-			// let data = responseArray[4].data;
+			let avatar = responseArray[4].data.avatar_url;
+			// let data = responseArray[4].data.avatar_url;
 			let bio = responseArray[4].data.bio;
 			let blog = responseArray[4].data.blog;
 			// console.log(data);
 
 
 
-			const html = generateHTML(gitUser, repoCount, numberOfFollowing, numberOfFollowers, numberOfStarredRepos, gitLink, myName, locationLink, linkedInLink, twitterLink, instagramLink, facebookLink, bio, blog);
+			const html = generateHTML(gitUser, repoCount, numberOfFollowing, numberOfFollowers, numberOfStarredRepos, gitLink, myName, locationLink, linkedInLink, twitterLink, instagramLink, facebookLink, bio, blog, avatar);
 			writeFileAsync("index.html", html);
 			// console.log(html);
 			writePDF();
