@@ -29,7 +29,7 @@ function generateHTML(gitUser, repoCount, numberOfFollowing, numberOfFollowers, 
 	<div class="callout primary">
 		<div class="row column">
 			<h1>${myName}</h1>
-			<a href="${blog}">${blog}</a>
+			<h6>Learn About Me <a href=" ${blog}">${blog}</a></h6>
 		</div>
 	</div>
 	<div class="row small-up-2 medium-up-3 large-up-4">

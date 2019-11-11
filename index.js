@@ -2,37 +2,37 @@ const inquirer = require("inquirer");
 const axios = require("axios");
 const util = require("util");
 const fs = require("fs");
+const pdf = require("html-pdf");
 const writeFileAsync = util.promisify(fs.writeFile);
 const generateHTML = require("./generateHTML");
 const generateCSS = require("./generateCSS");
-const pdf = require('html-pdf');
 
 
-function writePDF(html) {
 
-	// let html = fs.readFileSync('index.html', 'utf8');
-	let options = { format: 'Letter' };
-	console.log(html);
-	pdf.create(html, options).toFile('./jmart.pdf', function(err, res) {
-		if (err) return console.log(err);
-		console.log(res); // { filename: '/app/businesscard.pdf' }
-	});
-
+function  writePDF2(html){
+		const options = {
+			format: "Legal"
+		};
+		pdf.create(html, options).toFile("./JasonMartin1.pdf", function(err, res) {
+			if (err) return console.log(`Something went wrong ${err}`);
+			console.log(`Profile PDF written`);
+		});
 }
-function writePDF(){
+
+function writePDF(html){
 	const puppeteer = require('puppeteer');
 
 	(async () => {
 		const browser = await puppeteer.launch();
 		const page = await browser.newPage();
+		await page.goto(`file:///Users/jmartin/Documents/DU/ProfileGenerator/index.html`,{waitUntil: 'networkidle2'});
 		// await page.goto(html);
-		await page.goto(`file:///Users/jmartin/Documents/DU/developerProfileGenerator/index.html`,{waitUntil: 'networkidle2'});
-		await page.content();
+		await page.content(html);
 		await page.pdf({
-			path: 'jasonMartin.pdf',
+			path: 'JasonMartin.pdf',
 			printBackground: true,
-			// format: 'A4',
-			// landscape: true,
+			format: 'A4',
+			landscape: true,
 			margin: {
 				top: "10px"
 			}});
@@ -51,13 +51,13 @@ function gitHubData(userName) {
 	const instagramLink = "https://www.instagram.com/jmart00000100/?hl=en";
 	const facebookLink = "https://www.facebook.com/jason.martin.142240?ref=bookmarks";
 	// const gitHubBlog = "https://github.blog/";
-
+	const config = { headers: { accept: "application/json" } };
 	axios.all([
-		axios.get("https://api.github.com/users/"+ gitUser+"/repos?per_page=100"),
-		axios.get("https://api.github.com/users/"+ gitUser+"/following"),
-		axios.get("https://api.github.com/users/"+ gitUser+"/followers"),
-		axios.get("https://api.github.com/users/"+ gitUser+"/starred"),
-		axios.get("https://api.github.com/users/"+gitUser)
+		axios.get("https://api.github.com/users/"+ gitUser+"/repos?per_page=100", config),
+		axios.get("https://api.github.com/users/"+ gitUser+"/following", config),
+		axios.get("https://api.github.com/users/"+ gitUser+"/followers", config),
+		axios.get("https://api.github.com/users/"+ gitUser+"/starred", config),
+		axios.get("https://api.github.com/users/"+gitUser, config)
 	])
 		.then(responseArray => {
 			let repositories = responseArray[0].data;
@@ -93,6 +93,7 @@ function gitHubData(userName) {
 
 			const html = generateHTML(gitUser, repoCount, numberOfFollowing, numberOfFollowers, numberOfStarredRepos, gitLink, myName, locationLink, linkedInLink, twitterLink, instagramLink, facebookLink, bio, blog);
 			writeFileAsync("index.html", html);
+			// console.log(html);
 			writePDF();
 
 		});
