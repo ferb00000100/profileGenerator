@@ -1,8 +1,9 @@
 function generateCSS(bgColor) {
-	return`
-	body {
+	return`	
+	.container {
 		background-color: ${bgColor.color};
-		}
+		width: 1000px;
+	}
 	ul {
 		list-style-type:none;
 		}

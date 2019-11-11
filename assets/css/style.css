@@ -1,7 +1,8 @@
-
-	body {
+	
+	.container {
 		background-color: darkcyan;
-		}
+		width: 1000px;
+	}
 	ul {
 		list-style-type:none;
 		}

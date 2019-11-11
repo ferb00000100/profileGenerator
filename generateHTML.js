@@ -4,7 +4,7 @@ return `
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Test</title>
+	<title>${myName}</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -13,6 +13,7 @@ return `
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<div class="container">
 <div class="d-flex topArea flex-column shadow rounded p-3 flex-md-row px-md-3 px-5 mb-3"> 
 	<div class="w-15 mt-3 shadow p-3 rounded">
 		<img src="${avatar}" class="img-fluid" alt="my avatar">
@@ -68,6 +69,7 @@ return `
 		</div>
 	</div>  
 	</nav>	
+</div>
 </div>
 </body>
 </html>
